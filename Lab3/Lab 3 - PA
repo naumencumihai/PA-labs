@@ -1,0 +1,71 @@
+Lab 3 - PA
+Naumencu Mihai
+322 CD
+
+
+(1)
+
+"aabd bc cb"
+
+Arbore Huffman:
+
+		    [10]
+
+	   0/       \1
+
+	  [4]          [6]
+
+   0/   \1      0/    \1
+
+  [2]   [2]    [3]     [3]
+ space   c      b     
+ 			               0/   \1
+
+                    [2]    [1]
+                     a      d
+
+K = {a, b, c, d, space}
+p(a) = p(c) = p(space) = 0.2
+p(b) = 0.3
+p(d) = 0.1
+
+Codificare: 110 110 10 111 00 10 01 00 01 10
+Lungime: 23 biti
+Cost = 2 * 0.2 + 2 * 0.2 + 2 * 0.3 + 3 * 0.2 + 3 * 0.1 = 2.3
+
+
+
+(2) -> Implemetare C in Lab3.c
+
+
+
+(3) 
+
+s = {10, 11, 12, 14, 16, 17}
+t = {11, 13, 13, 18, 17, 19}
+
+Ordonare spectacole dupa ora de final:
+10:00 - 11:00
+11:00 - 13:00
+12:00 - 13:00
+16:00 - 17:00
+14:00 - 18:00
+17:00 - 19:00
+
+Se selecteaza primul spectacol (10:00 - 11:00);
+
+Se parcurg restul spectacolelor, tinand cont de 
+ora de final a ultimului spectacol care a avut loc:
+
+11:00 - 13:00	->	11 == 11 -> Spectacolul va avea loc
+12:00 - 13:00	->	12 < 13  -> Spectacolul NU va avea loc
+16:00 - 17:00	->	16 > 13  -> Spectacolul va avea loc
+14:00 - 18:00	->	14 < 17  -> Spectacolul NU va avea loc
+17:00 - 19:00	->	17 == 17 -> Spectacolul va avea loc
+
+Programul final al spectacolelor:
+
+10:00 - 11:00
+11:00 - 13:00
+16:00 - 17:00
+17:00 - 19:00

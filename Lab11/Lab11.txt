@@ -1,0 +1,290 @@
+Laborator 11 - PA
+Naumencu Mihai
+322 CD
+
+
+Modificari costuri:
+
+AG: 2 -> 10
+BG: 8 -> 11
+CE: 1 -> 12
+JK: 2 -> 14
+
+(1) - Prim
+
+nod sursa: I
+la fiecare pas: nodurile din coada, d, p
+
+initializari:
+AMA = { }
+d[i] = inf, p[i] = null, i in (A, L)
+
+0:
+d[I] = 0
+actualizam in coada pe A(3), J(5), L(8)
+
+1: 
+Q = {
+	A(3), J(5), L(8),
+	B(inf), C(inf), D(inf), 
+	E(inf), F(inf), G(inf), 
+	H(inf), K(inf)
+	}
+
+	extragem nodul A(3)
+	AMA = {AI}
+		AG cost 10 -> d[G] = 10, p[G] = A
+		AH cost 6 -> d[H] = 6, p[H] = A
+		AB cost 9 -> d[B] = 9, p[B] = A
+
+2: 
+Q = {
+	J(5), H(6),
+	L(8), B(9), 
+	G(10), C(inf),
+	D(inf), E(inf), 
+	F(inf), K(inf)
+	}
+
+	extragem nodul J(5)
+	AMA = {AI, IJ}
+		JK cost 14 -> d[K] = 14, p[K] = J
+
+3:
+Q = {
+	H(6), L(8),
+	B(9), G(10),
+	K(14), C(inf),
+	D(inf), E(inf),
+	F(inf)
+	}
+
+	extragem nodul H(6)
+	AMA = {AI, IJ, AH}
+		HG cost 4 -> d[G] = 4, p[G] = H
+
+4:
+Q = {
+	G(4), L(8),
+	B(9), K(14),
+	C(inf), D(inf),
+	E(inf), F(inf)
+	}
+
+	extragem nodul G(4)
+	AMA = {AI, IJ, AH, HG}
+		GB cost 11 -> nu se actualizeaza
+
+5:
+Q = {
+	L(8), B(9), K(14),
+	C(inf), D(inf),
+	E(inf), F(inf)
+	}
+
+	extragem nodul L(8)
+	AMA = {AI, IJ, AH, HG, IL}
+		LK cost 7 -> d[K] = 7, p[K] = L
+
+6:
+Q = {
+	K(7), B(9)
+	C(inf), D(inf),
+	E(inf), F(inf)
+	}
+
+	extragem nodul K(7)
+	AMA = {AI, IJ, AH, HG, IL, LK}
+		L, J succesori ai lui K, nu se afla in Q ->
+		nicio actualizare
+
+7:
+Q = {
+	B(9),
+	C(inf), D(inf),
+	E(inf), F(inf)
+	}
+
+	extragem nodul B(9)
+	AMA = {AI, IJ, AH, HG, IL, LK, AB}
+		BC cost 5 -> d[C] = 5, p[C] = B
+
+8:
+Q = {
+	C(5), D(inf),
+	E(inf), F(inf)
+	}
+
+	extragem nodul C(5)
+	AMA = {AI, IJ, AH, HG, IL, LK, AB, BC}
+		CD cost 8 -> d[D] = 8, p[D] = C
+		CE cost 12 -> d[E] = 12, p[E] = C
+
+9:
+Q = {
+	D(8), E(12), F(inf)
+	}
+
+	extragem nodul D(8)
+	AMA = {AI, IJ, AH, HG, IL, LK, AB, BC, CD}
+		DF cost 9 -> d[F] = 9, p[F] = D
+
+10:
+Q = {
+	F(9), E(12)
+	}
+
+	extragem nodul F(9)
+	AMA = {AI, IJ, AH, HG, IL, LK, AB, BC, CD, DF}
+		FE cost 2 -> d[E] = 2, p[E] = F
+
+11:
+Q = {
+	E(2)
+	}
+
+	extragem nodul E(2)
+	AMA = {AI, IJ, AH, HG, IL, LK, AB, BC, CD, DF, FE}
+		F, C succesori ai lui E, nu se afla in Q ->
+		nu se actualizeaza
+
+12: Q {}
+
+	Final
+
+
+AMA = {AI, IJ, AH, HG, IL, LK, AB, BC, CD, DF, FE}
+
+
+
+(2) - Kruskal
+
+Muchii sortate:
+EF - 2
+AI - 3
+GH - 4
+BC - 5
+IJ - 5
+AH - 6
+KL - 7
+CD - 8
+IL - 8
+AB - 9
+DF - 9
+AG - 10
+BG - 11
+CE - 12
+JK - 14
+
+AMA = {}
+
+1:
+EF - 2
+nu formeaza ciclu
+arb(E) = {E, F}
+AMA = {EF}
+
+2:
+AI - 3
+arb(A) = {A}
+arb(I) = {I}
+nu formeaza ciclu
+arb(A) = {A, I}
+AMA = {EF, AI}
+
+3:
+GH - 4
+arb(G) = {G}
+arb(H) = {H}
+nu formeaza ciclu
+arb(G) = {G, H}
+AMA = {EF, AI, GH}
+
+4:
+BC - 5
+arb(B) = {B}
+arb(C) = {C}
+nu formeaza ciclu
+arb(B) = {B, C}
+AMA = {EF, AI, GH, BC}
+
+5:
+IJ - 5
+arb(A) = {A, I}
+arb(J) = {J}
+nu formeaza ciclu
+arb(A) = {A, I, J}
+AMA = {EF, AI, GH, BC, IJ}
+
+6:
+AH - 6
+arb(A) = {A, I, J}
+arb(H) = {H, G}
+nu formeaza ciclu
+arb(A) = {A, I, J, H, G}
+AMA = {EF, AI, GH, BC, IJ, AH}
+
+7:
+KL - 7
+arb(K) = {K}
+arb(L) = L
+nu formeaza ciclu
+arb(K) = {K, L}
+AMA = {EF, AI, GH, BC, IJ, AH, KL}
+
+8:
+CD - 8
+arb(C) = {B, C}
+arb(D) = {D}
+nu formeaza ciclu
+arb(B) = {B, C, D}
+AMA = {EF, AI, GH, BC, IJ, AH, KL, CD}
+
+9:
+IL - 8
+arb(I) = {A, I, J, H, G}
+arb(L) = {K, L}
+nu formeaza ciclu
+arb(A) = {A, I, J, L, K, H, G}
+AMA = {EF, AI, GH, BC, IJ, AH, KL, CD, IL}
+
+10:
+AB - 9
+arb(A) = {A, I, J, L, K, H, G}
+arb(B) = {B, C, D}
+nu formeaza ciclu
+arb(A) = {A, I, J, L, K, H, G, B, C, D}
+AMA = {EF, AI, GH, BC, IJ, AH, KL, CD, IL, AB}
+
+11:
+DF - 9
+arb(A) = {A, I, J, L, K, H, G, B, C, D}
+arb(F) = {F, E}
+nu formeaza ciclu
+arb(A) = {A, I, J, L, K, H, G, B, C, D, F, E}
+AMA = {EF, AI, GH, BC, IJ, AH, KL, CD, IL, AB, DF}
+
+*arb(A) contine toate nodurile grafului =>
+urmatorii pasi vor rezulta in formarea de cicluri
+
+12:
+AG - 10
+arb(A) = {A, I, J, L, K, H, G, B, C, D, F, E}
+formeaza ciclu
+
+13:
+BG - 11
+arb(A) = {A, I, J, L, K, H, G, B, C, D, F, E}
+formeaza ciclu
+
+14:
+CE - 12
+arb(A) = {A, I, J, L, K, H, G, B, C, D, F, E}
+formeaza ciclu
+
+15:
+JK - 14
+arb(A) = {A, I, J, L, K, H, G, B, C, D, F, E}
+formeaza ciclu
+
+AMA = {EF, AI, GH, IH, IJ, AH, KL, CD, IL, AB, DF}

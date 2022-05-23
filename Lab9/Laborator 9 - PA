@@ -1,0 +1,128 @@
+Laborator 9 - PA
+Naumencu Mihai
+322 CD
+
+(1)
+
+1. Puncte de articulatie 
+
+d(0) = 0, c(0) = gri, low(0) = 0, timp = 1
+d(1) = 1, c(1) = gri, low(1) = 1, timp = 2
+d(2) = 2, c(2) = gri, low(2) = 2, timp = 3, 
+	low(2) = 1 (update)
+d(3) = 3, c(3) = gri, low(3) = 3, timp = 4, 
+	low(3) = min(low(3), low(4) = 2 
+d(4) = 4, c(4) = gri, low(4) = 4, timp = 5, 
+	low(4) = min(low(2), low(4) = 2, low(4) < d(3) (nu e punct de articulatie)
+d(5) = 5, c(5) = gri, low(5) = 5, timp = 6
+d(6) = 6, c(6) = gri, low(6) = 6, timp = 7, 
+	low(6) > d(5) (5 punct de articulatie), low(5) > d(3) (3 punct de articulatie), low(3) > d(2) (2 punct de articulatie)
+d(7) = 7, c(7) = gri, low(7) = 7, timp = 8, 
+	low(7) = min(low(7), low(2)) = 1
+d(8) = 8, c(8) = gri, low(8) = 8, timp = 9, 
+	low(8) = min(low(7), low(1)) = 1, low(2) > d(1) (1 punct de articulatie)
+d(9) = 9, c(9) = gri, low(9) = 9, timp = 10, 
+	low(1) > d(0) (0  punct de articulatie)
+
+Rezultat, 5 puncte de articulatie:
+{0, 1, 2, 3, 5}
+
+(2)
+
+0: 1, 9
+1: 0, 2, 8
+2: 1, 3, 4, 7
+3: 2, 4, 5
+4: 2, 3
+5: 3, 6
+6: 5
+7: 2, 8
+8: 1, 7
+9: 0
+
+Nod 0:
+d(0) = 1, low(0) = 1, c(0) = gri
+
+	Nod 1:
+	p(1) = 0
+	d(1) = 2, low(1) = 2, c(1) = gri
+
+		Nod 2:
+		p(2) = 1
+		d(2) = 3, low(2) = 3, c(2) = gri
+
+			Nod 3:
+			p(3) = 2
+			d(3) = 4, low(3) = 4, c(3) = gri
+
+				Nod 4:
+				p(4) = 3
+				d(4) = 5, low(4) = 5, c(4) = gri
+					low(4) = min {low(4), d(2)} = d(2) = 3
+
+				Actualizare: low(3) = min {low(3), low(4)} = low(4) = 3 
+				Verif. cond: low(4) < d(3)
+
+				Nod 5: 
+				p(5) = 3
+				d(5) = 6, low(5) = 6, c(5) = gri
+
+					Nod 6:
+					p(6) = 5
+					d(6) = 7, low(6) = 7, c(6) = gri
+
+					Actualizare: low(5) = min {low(5), low(6)} = 6
+					Verif. cond: low(6) > d(5) (7 > 6) -> punte(6) = 1
+
+				Actualizare: low(3) = min {low(3), low(5)} = 3
+				Verif. cond: low(5) > d(3) (6 > 4) -> punte(5) = 1
+
+			Actualizare: low(2) = min {low(2), low(3)} = 3
+			Verif. cond: low(3) == d(2) (3 == 3)
+
+			Nod 4:
+			Actualizare: low(2) = min {low(2), d(4)} = 3
+
+			Nod 7:
+			p(7) = 2
+			d(7) = 8, low(7) = 8, c(7) = gri
+
+				Nod 8:
+				p(8) = 7
+				d(8) = 9, low(8) = 9, c(8) = gri
+
+					Nod 1:
+					Actualizare: low(8) = min {low(8), d(1)} = 2
+
+				Actualizare: low(7) = min {low(7), low(8)} = 2
+				Verif. cond: low(8) < d(7)
+
+			Actualizare: low(2) = min {low(2), low(7)} = 2
+			Verif. cond: low(7) < d(2)
+
+		Actualizare: low(1) = min {low(1), low(2)} = 2
+		Verif. cond: low(2) == d(1) (2 == 2)
+
+		Nod 8:
+		Actualizare: low(1) = min {low(1), d(8)} = 2
+
+	Actualizare: low(0) = min {low(0), low(1)} = 1
+	Verif. cond: low(1) > d(0) (2 > 1) -> punte(1) = 1
+
+	Nod 9:
+	p(9) = 0
+	d(9) = 10, low(9) = 10, c(9) = gri
+
+	Actualizare: low(0) = min {low(0), low(9)} = 1
+	Verif. cond: low(9) > d(0) (10 > 1) -> punte(9) = 1
+
+
+Rezultat, 4 punti:
+
+(5, 6)
+(3, 5)
+(1, 0)
+(9, 0)
+
+
+
